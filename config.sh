@@ -15,4 +15,14 @@ handle_hook_dir() {
 }
 
 # Custom exports will be available in hooked scripts
-# export MY_CUSTOM_VARIABLE="my_value"
+export PARTITION_BACKUP_DIR=/root/partitions
+export PACMAN_BACKUP_DIR=/root/pacman
+export AUR_HELPER=yaourt
+
+write_and_echo_file() {
+  FILE=$1
+  (>&2 echo "generating ${FILE}...")
+  cat > ${FILE}
+  echo ${FILE}
+}
+export -f write_and_echo_file

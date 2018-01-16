@@ -1,14 +1,5 @@
 #!/usr/bin/sh
 
-PACMAN_BACKUP_DIR=/root/pacman
-
-write_and_echo_file() {
-  FILE=$1
-  (>&2 echo "generating ${FILE}...")
-  cat > ${FILE}
-  echo ${FILE}
-}
-
 if [ ! -d ${PACMAN_BACKUP_DIR} ]; then
   mkdir -p ${PACMAN_BACKUP_DIR}
 fi
