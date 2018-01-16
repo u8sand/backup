@@ -14,4 +14,6 @@ We crawl `hooks.d` specific subdirectories before and after each script and exec
 - `hooks.d/after-restore/*.sh`
 - `hooks.d/after/*.sh`
 
+Custom environmental variables and functions can be put in `config.sh` as this is sourced by `backup.sh` and `restore.sh` those variables and functions will be available in any of the hook scripts.
+
 Backup compression has been implemented as a hook.
