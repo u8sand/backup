@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-BACKUP_ROOT=/
-BACKUP=backup.tar.gz
-BACKUP_DIR=backup
-WHITELIST_DIR=whitelist.d
-BLACKLIST_DIR=blacklist.d
+export BACKUP_ROOT=/
+export BACKUP=backup.tar.gz
+export BACKUP_DIR=backup
+export WHITELIST_DIR=whitelist.d
+export BLACKLIST_DIR=blacklist.d
+export HOOKS_DIR=hooks.d
 
 if [ "$UID" != "0" ]; then
   echo "You must run this script as root." 1>&2
@@ -47,6 +48,13 @@ handle_dir() {
   fi
 }
 
+handle_hook_dir() {
+  DIR=$1
+  if [ -d "${DIR}" ]; then
+    find "${DIR}" -type f -regex ".*\.sh" -exec bash {} \;
+  fi
+}
+
 rsync_filters() {
   (>&2 echo "building rsync filter...")
   cat <(comm \
@@ -84,22 +92,6 @@ rsync_backup() {
     "${BACKUP_DIR}/root/"
 }
 
-extract_backup() {
-  if [ -f ${BACKUP} ]; then
-    (>&2 echo "extracting previous backup...")
-    tar -xf ${BACKUP}
-  elif [ ! -d ${BACKUP_DIR} ]; then
-    mkdir ${BACKUP_DIR}
-  fi
-}
-
-compress_backup() {
-  (>&2 echo "compressing backup...")
-  tar -cf ${BACKUP} ${BACKUP_DIR}
-  (>&2 echo "removing local tree...")
-  rm -r ${BACKUP_DIR}
-}
-
-extract_backup
+handle_hook_dir "${HOOKS_DIR}/before-backup"
 rsync_filters | rsync_backup
-compress_backup
+handle_hook_dir "${HOOKS_DIR}/after-backup"
