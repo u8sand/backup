@@ -4,6 +4,7 @@ PACMAN_BACKUP_DIR=/root/pacman
 
 write_and_echo_file() {
   FILE=$1
+  (>&2 echo "generating ${FILE}...")
   cat > ${FILE}
   echo ${FILE}
 }
