@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-BACKUP_ROOT=/
-BACKUP=backup.tar.gz
-HOOKS_DIR=hooks.d
+export BACKUP_ROOT=/
+export BACKUP=backup.tar.gz
+export HOOKS_DIR=hooks.d
 
 handle_hook_dir() {
   DIR=$1
@@ -11,6 +11,8 @@ handle_hook_dir() {
   fi
 }
 
+handle_hook_dir "${HOOKS_DIR}/before"
 handle_hook_dir "${HOOKS_DIR}/before-restore"
 tar -xf ${BACKUP} -C ${BACKUP_ROOT}
 handle_hook_dir "${HOOKS_DIR}/after-restore"
+handle_hook_dir "${HOOKS_DIR}/after"

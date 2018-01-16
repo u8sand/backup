@@ -92,6 +92,8 @@ rsync_backup() {
     "${BACKUP_DIR}/root/"
 }
 
+handle_hook_dir "${HOOKS_DIR}/before"
 handle_hook_dir "${HOOKS_DIR}/before-backup"
 rsync_filters | rsync_backup
 handle_hook_dir "${HOOKS_DIR}/after-backup"
+handle_hook_dir "${HOOKS_DIR}/after"
