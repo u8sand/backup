@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-export BACKUP_ROOT=/
-export BACKUP=backup.tar.gz
-export BACKUP_DIR=backup
-export WHITELIST_DIR=whitelist.d
-export BLACKLIST_DIR=blacklist.d
-export HOOKS_DIR=hooks.d
-
 if [ "$UID" != "0" ]; then
   echo "You must run this script as root." 1>&2
   exit 1
@@ -14,6 +7,7 @@ fi
 
 SRCDIR=$(dirname "$(realpath $0)")
 cd ${SRCDIR}
+source config.sh
 
 ensure_full_paths() {
   # Given paths like /root/sub/dir/
@@ -45,13 +39,6 @@ handle_dir() {
       \( -regex ".*\.sh$" -exec bash {} \; \) \
       | ensure_full_paths \
       | sort
-  fi
-}
-
-handle_hook_dir() {
-  DIR=$1
-  if [ -d "${DIR}" ]; then
-    find "${DIR}" -type f -regex ".*\.sh" -exec bash {} \;
   fi
 }
 
