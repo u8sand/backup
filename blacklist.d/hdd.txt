@@ -1,0 +1,6 @@
+/var/
+/ext/
+/hdd/
+/home/
+/root/***
+/opt/
