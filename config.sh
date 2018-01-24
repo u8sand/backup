@@ -18,7 +18,6 @@ handle_hook_dir() {
 # Custom exports will be available in hooked scripts
 export PARTITION_BACKUP_DIR=/root/partitions
 export PACMAN_BACKUP_DIR=/root/pacman
-export AUR_HELPER=yaourt
 
 write_and_echo_file() {
   FILE=$1
@@ -27,3 +26,15 @@ write_and_echo_file() {
   echo ${FILE}
 }
 export -f write_and_echo_file
+
+pacman_helper() {
+  pacman -S --needed --noconfirm $@ -
+}
+export -f pacman_helper
+
+aur_helper() {
+  while read PKG; do
+    yaourt -S --needed --noconfirm $@ ${PKG}
+  done
+}
+export -f aur_helper
