@@ -6,6 +6,7 @@ export BACKUP_DIR=backup
 export WHITELIST_DIR=whitelist.d
 export BLACKLIST_DIR=blacklist.d
 export HOOKS_DIR=hooks.d
+export FILELIST_CMD=./filelist.py
 
 handle_hook_dir() {
   DIR=$1
