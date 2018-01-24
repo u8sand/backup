@@ -1,3 +1,22 @@
 # Primary directories of interest
 /etc/
 /usr/
+
+# Specific user configurations
+/home/u8sand/.bashrc
+/home/u8sand/.config/bakamplayer.ini
+/home/u8sand/.config/Code/User/keybindings.json
+/home/u8sand/.config/Code/User/settings.json
+/home/u8sand/.config/gtk-3.0/settings.ini
+/home/u8sand/.config/i3/
+/home/u8sand/.config/sublime-text-3/Local/
+/home/u8sand/.config/sublime-text-3/Packages/
+/home/u8sand/.gitconfig
+/home/u8sand/.gtkrc-2.0
+/home/u8sand/.local/share/nemo/
+/home/u8sand/.profile
+/home/u8sand/.rc
+/home/u8sand/.ssh/
+/home/u8sand/.vimrc
+/home/u8sand/.xinitrc
+/home/u8sand/.zshrc

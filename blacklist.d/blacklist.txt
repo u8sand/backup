@@ -11,3 +11,10 @@
 /raid/
 /solid/
 /ssd/
+
+# Specific user configurations
+/home/u8sand/.config/i3/.current_wallpaper
+
+# Regex filters
+~^\.git$
+~\.cache$

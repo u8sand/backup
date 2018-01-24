@@ -2,7 +2,7 @@
 
 ls ${BACKUP_DIR}/archives/ \
   | awk 'BEGIN {
-  split(ENVIRON["TODAY"], "-", TODAY);
+  split(ENVIRON["TODAY"], TODAY, "-");
   CUTOFF = (TODAY[0]-1)"-"TODAY[1]"-"TODAY[2];
 } $0 <= CUTOFF {
   print $0
