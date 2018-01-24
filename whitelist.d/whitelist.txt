@@ -1,0 +1,3 @@
+# Primary directories of interest
+/etc/
+/usr/

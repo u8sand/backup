@@ -1,0 +1,13 @@
+# Unneeded in backup
+/home/
+/opt/
+/root/
+/var/
+
+# My system's special directories
+/backup/
+/ext/
+/hdd/
+/raid/
+/solid/
+/ssd/
