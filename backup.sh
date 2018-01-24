@@ -59,7 +59,6 @@ rsync_backup() {
     --relative \
     --times \
     --verbose \
-    --verbose \
     --xattrs \
     $@ \
     "${BACKUP_ROOT}" \

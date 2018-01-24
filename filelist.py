@@ -66,6 +66,8 @@ def main(whitelist, blacklist):
           print('inclusion check %s... %d <= %d' % (p, whitelist_m, blacklist_m), file=sys.stderr)
           if whitelist_m <= blacklist_m:
             filelist.add(p)
+          else:
+            pass # TODO: add to rsync exclusion
         if f.endswith(os.path.sep):
           for dd in dirs:
             p = os.path.join(root, dd)
@@ -74,10 +76,12 @@ def main(whitelist, blacklist):
             print('exclusion check %s... %d > %d' % (p, whitelist_m, blacklist_m), file=sys.stderr)
             if whitelist_m > blacklist_m:
               dirs.remove(dd)
+              # TODO: add to rsync exclusion
         else: # Recurse only into directories that end in /
           dirs.clear()
+          # TODO: add to rsync exclusion
     else:
-      print('including %s because of whitelist...' % (f), file=sys.stderr)
+      print('including %s...' % (f), file=sys.stderr)
       filelist.add(f)
 
   print('\n'.join(sorted(filelist)), file=sys.stderr)
