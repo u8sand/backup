@@ -40,7 +40,7 @@ rsync_backup() {
   rsync \
     --acls \
     --backup \
-    --backup-dir="../archives/$(date +'%Y-%m-%d')" \
+    --backup-dir="../archives/${TODAY}" \
     --checksum \
     --compress \
     --delete \
