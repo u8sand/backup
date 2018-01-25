@@ -4,6 +4,22 @@ import re
 import os
 import sys
 
+def ensure_full_paths(P):
+  '''
+  Ensure the full path is constructed for all paths
+  for rsync filtering to work properly.
+  '''
+  L = set()
+  for l in sorted(P):
+    ls = l.split(os.path.sep)
+    for i in range(1, len(ls)):
+      L.add(os.path.sep.join(ls[:i]))
+    L.add(l)
+  if '' in L:
+    L.remove('')
+    L.add('/')
+  return L
+
 def detect_regex_exprs(L):
   '''
   Parse whitelist/blacklist file lists empty lines
@@ -66,8 +82,6 @@ def main(whitelist, blacklist):
           print('inclusion check %s... %d <= %d' % (p, whitelist_m, blacklist_m), file=sys.stderr)
           if whitelist_m <= blacklist_m:
             filelist.add(p)
-          else:
-            pass # TODO: add to rsync exclusion
         if f.endswith(os.path.sep):
           for dd in dirs:
             p = os.path.join(root, dd)
@@ -76,29 +90,27 @@ def main(whitelist, blacklist):
             print('exclusion check %s... %d > %d' % (p, whitelist_m, blacklist_m), file=sys.stderr)
             if whitelist_m > blacklist_m:
               dirs.remove(dd)
-              # TODO: add to rsync exclusion
         else: # Recurse only into directories that end in /
           dirs.clear()
-          # TODO: add to rsync exclusion
     else:
       print('including %s...' % (f), file=sys.stderr)
       filelist.add(f)
 
-  print('\n'.join(sorted(filelist)), file=sys.stderr)
-  return filelist
+  return ensure_full_paths(filelist)
 
 if __name__ == '__main__':
   if len(sys.argv) < 2:
     print('Usage: filelist.py <whitelist_file> <blacklist_file>')
     exit(1)
 
-  print(
-    '\n'.join(
-      sorted(
-        main(
-          open(sys.argv[1], 'r').read().splitlines(),
-          open(sys.argv[2], 'r').read().splitlines(),
-        )
+  out = '\n'.join(
+    sorted(
+      main(
+        open(sys.argv[1], 'r').read().splitlines(),
+        open(sys.argv[2], 'r').read().splitlines(),
       )
     )
   )
+
+  print(out, file=sys.stderr)
+  print(out)

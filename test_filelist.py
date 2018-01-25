@@ -5,6 +5,31 @@ from filelist import *
 from unittest import TestCase
 
 class TestFilelist(TestCase):
+  def test_ensure_full_paths(self):
+    self.assertEqual(
+      ensure_full_paths(['/a/b/c/d/e', '/a/b/c/f']),
+      set([
+        '/',
+        '/a',
+        '/a/b',
+        '/a/b/c',
+        '/a/b/c/d',
+        '/a/b/c/f',
+        '/a/b/c/d/e',
+      ]),
+    )
+    self.assertEqual(
+      ensure_full_paths(['a/b/c/d/e', 'a/b/c/f']),
+      set([
+        'a',
+        'a/b',
+        'a/b/c',
+        'a/b/c/d',
+        'a/b/c/f',
+        'a/b/c/d/e',
+      ]),
+    )
+
   def test_detect_regex_exprs(self):
     self.assertEqual(
       detect_regex_exprs([

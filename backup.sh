@@ -32,7 +32,11 @@ rsync_files_from() {
   build_file_list \
     <(handle_dir ${WHITELIST_DIR}) \
     <(handle_dir ${BLACKLIST_DIR}) \
-  | sed 's/^\(.*\)\/$/\1/'
+  | awk "/.*/ {
+      print \"+\", \$0
+    } END {
+      print \"- ***\"
+    }"
 }
 
 rsync_backup() {
@@ -45,9 +49,8 @@ rsync_backup() {
     --compress \
     --delete \
     --delete-excluded \
-    --dirs \
     --executability \
-    --files-from=- \
+    --include-from=- \
     --fuzzy \
     --group \
     --links \
@@ -57,7 +60,9 @@ rsync_backup() {
     --perms \
     --progress \
     --relative \
+    --recursive \
     --times \
+    --verbose \
     --verbose \
     --xattrs \
     $@ \
