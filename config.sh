@@ -42,12 +42,18 @@ export -f write_and_echo_file
 
 pacman_helper() {
   pacman -S --needed --noconfirm $@ -
+  if [ $? -ne 0 ]; then
+    exit_clean $? "pacman install $@ failed..."
+  fi
 }
 export -f pacman_helper
 
 aur_helper() {
   while read PKG; do
     yaourt -S --needed --noconfirm $@ ${PKG}
+    if [ $? -ne 0 ]; then
+      exit_clean $? "yaourt install ${PKG} failed..."
+    fi
   done
 }
 export -f aur_helper
