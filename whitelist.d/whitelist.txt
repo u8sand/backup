@@ -1,0 +1,6 @@
+# Primary directories of interest
+/etc/
+/home/
+/root/
+/usr/
+/var/

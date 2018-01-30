@@ -17,4 +17,27 @@ handle_hook_dir() {
 }
 
 # Custom exports will be available in hooked scripts
-# export MY_CUSTOM_VARIABLE="my_value"
+export BACKUP_REMOTE=backup@192.168.1.2
+export BACKUP_REMOTE_ROOT=/backup/pi
+export PARTITION_BACKUP_DIR=/root/partitions
+export PACMAN_BACKUP_DIR=/root/pacman
+
+write_and_echo_file() {
+  FILE=$1
+  (>&2 echo "generating ${FILE}...")
+  cat > ${FILE}
+  echo ${FILE}
+}
+export -f write_and_echo_file
+
+pacman_helper() {
+  pacman -S --needed --noconfirm $@ -
+}
+export -f pacman_helper
+
+aur_helper() {
+  while read PKG; do
+    yaourt -S --needed --noconfirm $@ ${PKG}
+  done
+}
+export -f aur_helper

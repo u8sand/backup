@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+ssh ${BACKUP_REMOTE} << EOF
+cd ${BACKUP_REMOTE_ROOT}
 ls ${BACKUP_DIR}/archives/ \
   | awk 'BEGIN {
   split(ENVIRON["TODAY"], "-", TODAY);
@@ -10,3 +12,4 @@ ls ${BACKUP_DIR}/archives/ \
   (>&2 echo "removing old archive ${DIR}...")
   rm -r ${BACKUP_DIR}/archives/${DIR}
 done
+EOF

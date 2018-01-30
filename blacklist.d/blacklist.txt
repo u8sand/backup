@@ -1,0 +1,3 @@
+# User custom files
+/root/backup/
+/swapfile
