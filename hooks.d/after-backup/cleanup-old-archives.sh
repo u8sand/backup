@@ -10,3 +10,6 @@ ls ${BACKUP_DIR}/archives/ \
   (>&2 echo "removing old archive ${DIR}...")
   rm -r ${BACKUP_DIR}/archives/${DIR}
 done
+if [ $? -ne 0 ]; then
+  exit_clean $? "cleanup-old-archives failed..."
+fi
