@@ -1,3 +1,10 @@
 # User custom files
 /root/backup/
 /swapfile
+/var/cache/
+/var/lib/pacman/
+
+# Unneeded regexes
+~\.gem$
+~^\.git$
+~cache$

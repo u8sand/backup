@@ -30,7 +30,7 @@ export -f handle_hook_dir
 
 # Custom exports will be available in hooked scripts
 export BACKUP_REMOTE=backup@192.168.1.2
-export BACKUP_REMOTE_ROOT=/backup/pi
+export BACKUP_REMOTE_ROOT=/backup/sand-pi
 export PARTITION_BACKUP_DIR=/root/partitions
 export PACMAN_BACKUP_DIR=/root/pacman
 
