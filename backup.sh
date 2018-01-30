@@ -20,12 +20,18 @@ handle_dir() {
       \( -regex ".*\.txt$" -exec cat {} \; \) -o \
       \( -regex ".*\.sh$" -exec bash {} \; \) \
       | sort
+    if [ $? -ne 0 ]; then
+      exit_clean $? "handle_dir ${DIR} failed..."
+    fi
   fi
 }
 
 build_file_list() {
   (>&2 echo "building file list...")
   ${FILELIST_CMD} $1 $2
+  if [ $? -ne 0 ]; then
+    exit_clean $? "${FILELIST_CMD} failed..."
+  fi
 }
 
 rsync_files_from() {
@@ -37,6 +43,9 @@ rsync_files_from() {
     } END {
       print \"- ***\"
     }"
+  if [ $? -ne 0 ]; then
+    exit_clean $? "rsync_files_from failed..."
+  fi
 }
 
 rsync_backup() {
@@ -68,6 +77,9 @@ rsync_backup() {
     $@ \
     "${BACKUP_ROOT}" \
     "${BACKUP_DIR}/root/"
+  if [ $? -ne 0 ]; then
+    exit_clean $? "rsync failed..."
+  fi
 }
 
 handle_hook_dir "${HOOKS_DIR}/before"

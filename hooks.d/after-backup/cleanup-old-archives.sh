@@ -13,3 +13,6 @@ ls ${BACKUP_DIR}/archives/ \
   rm -r ${BACKUP_DIR}/archives/\${DIR}
 done
 EOF
+if [ $? -ne 0 ]; then
+  exit_clean $? "cleanup-old-archives failed..."
+fi
