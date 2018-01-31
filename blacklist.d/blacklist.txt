@@ -3,6 +3,7 @@
 /swapfile
 /var/cache/
 /var/lib/pacman/
+/var/log/
 
 # Unneeded regexes
 ~\.gem$
