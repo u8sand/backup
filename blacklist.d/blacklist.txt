@@ -1,4 +1,5 @@
 # User custom files
+/home/sandrepo/
 /root/backup/
 /swapfile
 /var/cache/
